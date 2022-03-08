@@ -12,7 +12,8 @@ $uniqueid = uniqid();
 $database = new Database();
 $db = $database->get_connection();
 $items = new LeaveTracker($db);
-//print_r($_FILES);die;
+
+
 if(empty($_FILES))
 {
   //$_POST = json_decode(file_get_contents('php://input'),true);

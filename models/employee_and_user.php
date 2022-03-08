@@ -39,6 +39,12 @@ class Employee
         $this->result_single_read_employee= $this->db->query($sqlQueryReadEmployee);
         return $this->db;
     }
+    public function read_single_employee_by_id()
+    {
+        $sqlQueryReadEmployee = "SELECT * FROM employee WHERE id=$this->id";
+        $this->result_single_read_employee= $this->db->query($sqlQueryReadEmployee);
+        return $this->result_single_read_employee;
+    }
     public function login_employee()
     {
         $sqlQueryReadEmployee = "SELECT
