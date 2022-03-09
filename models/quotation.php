@@ -24,25 +24,30 @@ class Quotation
     }
     public function read_quotation()
     {
-        $sql_read = "SELECT * FROM $this->db_table";
+        $sql_read = "SELECT quotation.id,quotation.customer_enquiry,quotation.des_quant_rate,quotation.total,customer.name as customer_name
+        FROM quotation 
+        LEFT JOIN customer_inquiry ON customer_inquiry.id=quotation.customer_enquiry
+        LEFT JOIN customer ON customer.id = customer_inquiry.customer";
         //echo $sql_create;die;
         $this->result = $this->db->query($sql_read);
         return $this->result;
     }
-    // public function update_material_type()
-    // {
-    //     $sql_update = "UPDATE $this->db_table SET
-    //     material_type='$this->material_type'
-    //     WHERE id=$this->id";
-    //     //echo $sql_update;die;
-    //     $this->result = $this->db->query($sql_update);
-    //     return $this->result;
-    // }
+    public function update_quotation()
+    {
+        $sql_update = "UPDATE $this->db_table SET
+        customer_enquiry='$this->customer_enquiry',
+        des_quant_rate='$this->des_quant_rate',
+        total='$this->total'
+        WHERE id=$this->id";
+        //echo $sql_update;die;
+        $this->result = $this->db->query($sql_update);
+        return $this->result;
+    }
 
-    // public function delete_material_type()
-    // {
-    //     $sql_update = "DELETE FROM  $this->db_table WHERE id=$this->id";
-    //     $this->result = $this->db->query($sql_update);
-    //     return $this->result;
-    // }
+    public function delete_quotation()
+    {
+        $sql_delete = "DELETE FROM $this->db_table WHERE id=$this->id";
+        $this->result = $this->db->query($sql_delete);
+        return $this->result;
+    }
 }
