@@ -28,7 +28,14 @@ if(empty($_FILES))
 
 	$items->customer = $data_entity['customer'];
 	$items->design_upload = $data_entity['design_upload'];
-	
+
+	$get_customer_inquiry=$items->get_customer_inquiry();
+	while ($row = mysqli_fetch_assoc($get_customer_inquiry)) {
+		$customer_name = $row["customer_name"];
+	}
+	//print_r($get_customer_inquiry);die;
+	$items->inquiry=$customer_name."-Enquiry-".strval($get_customer_inquiry->num_rows+1);
+	//print_r($items);die;
   $response = $items->create_customer_without_inquiry();
   $response_arr=array();
   if($response)
@@ -43,6 +50,7 @@ if(empty($_FILES))
       $response_arr['message'] = "Inquiry cannot created";
       echo json_encode($response_arr);
   }
+ 
 }
 else
 {
@@ -105,6 +113,13 @@ else
 	$items->design_upload = $fileName;
 	$items->description = $_POST['description'];
 
+	$get_customer_inquiry=$items->get_customer_inquiry();
+	while ($row = mysqli_fetch_assoc($get_customer_inquiry)) {
+		$customer_name = $row["customer_name"];
+	}
+	//print_r($get_customer_inquiry);die;
+	$items->inquiry=$customer_name."-Enquiry-".strval($get_customer_inquiry->num_rows+1);
+	
 	$response_arr=array();
 
 	if ($items->create_customer_inquiry())
@@ -121,6 +136,7 @@ else
 	    $response_arr["messsage"]= "Inquiry could not be created.";
 	    echo json_encode($response_arr);
 	}
+
 }
 
 //$fileName  =  $_FILES['sendimage']['name'];

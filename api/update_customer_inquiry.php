@@ -52,7 +52,7 @@ else
   	$fileExt = strtolower(pathinfo($fileName,PATHINFO_EXTENSION)); // get image extension
 
   	// valid image extensions
-  	$valid_extensions = array('jpeg', 'jpg', 'png', 'gif');
+  	$valid_extensions = array('dwg','jpeg', 'jpg', 'png', 'gif');
 
   	// allow valid image file formats
   	if(in_array($fileExt, $valid_extensions))

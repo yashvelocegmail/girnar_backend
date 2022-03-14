@@ -144,4 +144,10 @@ class Customer
       $delete_customer = $this->db->query($sqlQueryDeleteCustomer);
       return $delete_customer;
     }
+    public function read_all_customer()
+    {
+        $sqlReadAllCustomers = "SELECT * FROM customer";
+        $read_all_customer = $this->db->query($sqlReadAllCustomers);
+        return $read_all_customer;
+    }
 }

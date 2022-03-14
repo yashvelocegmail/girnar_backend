@@ -6,6 +6,7 @@ class CustomerInquiry
     public $db_table = "customer_inquiry";
 
     public $id;
+    public $inquiry;
     public $customer;
     public $material_thickness;
     public $material_type;
@@ -23,14 +24,14 @@ class CustomerInquiry
 
     public function create_customer_inquiry()
     {
-        $sql_create = "INSERT INTO ".$this->db_table."(customer,material_type,material_thickness,material_grade,material_status,type_of_process,expected_delivery,design_upload,description) VALUES (".$this->customer.",".$this->material_type.",".$this->material_thickness.",'".$this->material_grade."','".$this->material_status."','".$this->type_of_process."','".$this->expected_delivery."','".$this->design_upload."','".$this->description."')";
+        $sql_create = "INSERT INTO ".$this->db_table."(inquiry,customer,material_type,material_thickness,material_grade,material_status,type_of_process,expected_delivery,design_upload,description) VALUES ('".$this->inquiry."',".$this->customer.",".$this->material_type.",".$this->material_thickness.",'".$this->material_grade."','".$this->material_status."','".$this->type_of_process."','".$this->expected_delivery."','".$this->design_upload."','".$this->description."')";
         //echo $sql_create;die;
         $this->result = $this->db->query($sql_create);
         return $this->db;
     }
     public function create_customer_without_inquiry()
     {
-        $sql_create = "INSERT INTO ".$this->db_table."(customer,design_upload) VALUES (".$this->customer.",'".$this->design_upload."')";
+        $sql_create = "INSERT INTO ".$this->db_table."(inquiry,customer,design_upload) VALUES ('".$this->inquiry."',".$this->customer.",'".$this->design_upload."')";
         //echo $sql_create;die;
         $this->result = $this->db->query($sql_create);
         return $this->db;
@@ -43,6 +44,7 @@ class CustomerInquiry
                         customer.name as customer_name,
                         customer.mobile_number as customer_mobile_number,
                         customer.email_id as customer_email_id,
+                        customer_inquiry.inquiry,
                         customer_inquiry.customer,
                         customer_inquiry.material_type,
                         customer_inquiry.material_thickness,
@@ -140,6 +142,15 @@ class CustomerInquiry
     {
         $sql_update = "DELETE FROM  ".$this->db_table." WHERE id=".$this->id;
         $this->result = $this->db->query($sql_update);
+        return $this->result;
+    }
+    public function get_customer_inquiry()
+    {
+        $sql_get="SELECT customer.id,customer.name as customer_name,customer_inquiry.id from 
+        customer_inquiry
+        LEFT JOIN customer ON customer.id=customer_inquiry.customer
+         WHERE customer=$this->customer";
+        $this->result = $this->db->query($sql_get);
         return $this->result;
     }
 }

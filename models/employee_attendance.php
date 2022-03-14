@@ -65,6 +65,7 @@ class EmployeeAttendance
         $this->result = $this->db->query($sql_check_out_approval);
         return $this->db;
     }
+    
     public function read_check_approval()
     {
         $sql_check_approval = "SELECT * FROM $this->db_table WHERE date='$this->date' and employee=$this->employee";
@@ -92,5 +93,17 @@ class EmployeeAttendance
         //echo $sql_search_attendance;die;
         $this->result = $this->db->query($sql_search_attendance);
         return $this->result;
+    }
+    public function check_in_rejected()
+    {
+        $sql_check_in_approval = "UPDATE $this->db_table SET check_in_approval='rejected' WHERE id=$this->id";
+        $this->result = $this->db->query($sql_check_in_approval);
+        return $this->db;
+    }
+    public function check_out_rejected()
+    {
+        $sql_check_out_approval = "UPDATE $this->db_table SET check_out_approval='rejected' WHERE id=$this->id";
+        $this->result = $this->db->query($sql_check_out_approval);
+        return $this->db;
     }
 }
