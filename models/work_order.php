@@ -218,10 +218,14 @@ class WorkOrder
     {
         // $sql_read_designer_head_status = "SELECT * FROM work_order WHERE designer=$this->designer";
         // $read_result = $this->db->query($sql_read_designer_head_status);
-        // $status_data=array();
+        // $status_data=[];
         // while($row=$read_result->fetch_assoc())
         // {
         //     array_push($status_data,trim($row['designer_head_description_status'],'"'));
+        // }
+        // for($i=0;$i<count($status_data);$i++)
+        // {
+        //     print_r(json_decode($status_data[$i]));die;
         // }
         // print_r($status_data);die;
         $sql_read_designer = "SELECT 
