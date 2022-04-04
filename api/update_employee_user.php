@@ -26,7 +26,7 @@ if(empty($_FILES))
   $items->pan_no = $_POST['pan_no'];
   $items->username = $_POST['username'];
   $items->password = $_POST['password'];
-  $items->user_type = $_POST['user_type'];
+  // $items->user_type = $_POST['user_type'];
   $items->bank_name = $_POST['bank_name'];
   $items->branch = $_POST['branch'];
   $items->ifsc = $_POST['ifsc'];
@@ -99,7 +99,7 @@ else
     $items->pan_no = $_POST['pan_no'];
     $items->username = $_POST['username'];
     $items->password = $_POST['password'];
-    $items->user_type = $_POST['user_type'];
+    // $items->user_type = $_POST['user_type'];
     $items->bank_name = $_POST['bank_name'];
     $items->branch = $_POST['branch'];
     $items->ifsc = $_POST['ifsc'];

@@ -15,25 +15,26 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 $items->designer = $_POST['designer'];
 
 $records = $items->read_work_order_by_designer();
-//print_r($records->affected_rows);die;
-    $item_count = $records->num_rows;
-    //echo json_encode($item_count);
-    if($item_count>0)
-    {
-        $response_arr=array();
-        $response_arr['data']=array();
-        $response_arr['itemcount'] = $item_count;
-        while($row=$records->fetch_assoc())
-        {
-            array_push($response_arr['data'],$row);
-        }
-        echo json_encode($response_arr);
-    }
-    else
-    {
-        http_response_code(200);
-        $response_arr=array();
-        $response_arr['data']=array();
-        $response_arr['itemcount'] = $item_count;
-        echo json_encode([]);
-    }
+//print_r($records);die;
+        echo $records;
+    // $item_count = $records->num_rows;
+    // //echo json_encode($item_count);
+    // if($item_count>0)
+    // {
+    //     $response_arr=array();
+    //     $response_arr['data']=array();
+    //     $response_arr['itemcount'] = $item_count;
+    //     while($row=$records->fetch_assoc())
+    //     {
+    //         array_push($response_arr['data'],$row);
+    //     }
+    //     echo json_encode($response_arr);
+    // }
+    // else
+    // {
+    //     http_response_code(200);
+    //     $response_arr=array();
+    //     $response_arr['data']=array();
+    //     $response_arr['itemcount'] = $item_count;
+    //     echo json_encode([]);
+    // }

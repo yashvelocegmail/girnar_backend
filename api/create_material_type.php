@@ -10,23 +10,22 @@ include_once '../models/material_type.php';
 $database = new Database();
 $db = $database->get_connection();
 $items = new MaterialType($db);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-$_POST = json_decode(file_get_contents('php://input'),true);
+    $_POST = json_decode(file_get_contents('php://input'), true);
 
-$items->material_type = $_POST['material_type'];
-$create_third_party=$items->create_material_type();
-$response_arr = array();
-if($create_third_party)
-{
-    http_response_code(200);
-    $response_arr["status"]=200;
-    $response_arr["messsage"] = "Material type created successfully";
-    echo json_encode($response_arr);
-}
-else
-{
-    http_response_code(404);
-    $response_arr["status"] = 404;
-    $response_arr["messsage"]= "Material type could not be created.";
-    echo json_encode($response_arr);
+    $items->material_type = $_POST['material_type'];
+    $create_third_party = $items->create_material_type();
+    $response_arr = array();
+    if ($create_third_party) {
+        http_response_code(200);
+        $response_arr["status"] = 200;
+        $response_arr["messsage"] = "Material type created successfully";
+        echo json_encode($response_arr);
+    } else {
+        http_response_code(404);
+        $response_arr["status"] = 404;
+        $response_arr["messsage"] = "Material type could not be created.";
+        echo json_encode($response_arr);
+    }
 }

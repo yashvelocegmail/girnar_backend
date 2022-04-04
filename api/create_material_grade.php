@@ -11,7 +11,9 @@ $database = new Database();
 $db = $database->get_connection();
 $items = new MaterialGrade($db);
 
-$_POST = json_decode(file_get_contents('php://input'),true);
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+    $_POST = json_decode(file_get_contents('php://input'),true);
 
 $items->material_grade = $_POST['material_grade'];
 $create_material_grade=$items->create_material_grade();
@@ -29,4 +31,6 @@ else
     $response_arr["status"] = 404;
     $response_arr["messsage"]= "Material grade could not be created.";
     echo json_encode($response_arr);
+}
+
 }

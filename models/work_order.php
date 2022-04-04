@@ -216,19 +216,7 @@ class WorkOrder
     }
     public function read_work_order_by_designer()
     {
-        // $sql_read_designer_head_status = "SELECT * FROM work_order WHERE designer=$this->designer";
-        // $read_result = $this->db->query($sql_read_designer_head_status);
-        // $status_data=[];
-        // while($row=$read_result->fetch_assoc())
-        // {
-        //     array_push($status_data,trim($row['designer_head_description_status'],'"'));
-        // }
-        // for($i=0;$i<count($status_data);$i++)
-        // {
-        //     print_r(json_decode($status_data[$i]));die;
-        // }
-        // print_r($status_data);die;
-        $sql_read_designer = "SELECT 
+        $sql_read_work_orders = "SELECT 
         work_order.id,
                     work_order.work_order,
                     work_order.purchase_order,
@@ -251,8 +239,205 @@ class WorkOrder
         employee.name as designer_name
         FROM work_order
         LEFT JOIN employee ON employee.id=work_order.designer
-        WHERE work_order.designer=$this->designer";
-        $this->result = $this->db->query($sql_read_designer);
+        WHERE work_order.designer=$this->designer";;
+        $read_result = $this->db->query($sql_read_work_orders);
+        $status_data=[];
+        while($row=$read_result->fetch_assoc())
+        {
+            array_push($status_data,$row);
+        }
+        $comleted_status=  array();
+        for($i=0;$i<count($status_data);$i++)
+        {
+            if(!empty(strpos($status_data[$i]['designer_head_description_status'], 'assigned')))
+            {
+
+            }
+            else
+            {
+                array_push($comleted_status,$status_data[$i]);
+            }
+        }
+        return json_encode($comleted_status);
+    }
+    public function read_work_order_by_programmer()
+    {
+        $sql_read_work_orders = "SELECT 
+        work_order.id,
+                    work_order.work_order,
+                    work_order.purchase_order,
+                    work_order.designer_head,
+                    work_order.designer_head_file,
+                    work_order.designer_head_description_status,
+                    work_order.designer,
+                    work_order.designer_file,
+                    work_order.designer_description_status,
+                    work_order.programmer,
+                    work_order.programmer_description_status,
+                    work_order.programmer_file,
+                    work_order.machine_operator,
+                    work_order.machine_operator_description_status,
+                    work_order.machine_operator_parameter,
+                    work_order.machine_operator_file,
+                    work_order.transporter,
+                    work_order.transporter_description_status,
+                    work_order.transporter_file,
+        employee.name as programmer_name
+        FROM work_order
+        LEFT JOIN employee ON employee.id=work_order.programmer
+        WHERE work_order.programmer=$this->programmer";;
+        $read_result = $this->db->query($sql_read_work_orders);
+        $status_data=[];
+        while($row=$read_result->fetch_assoc())
+        {
+            array_push($status_data,$row);
+        }
+        $comleted_status=  array();
+        for($i=0;$i<count($status_data);$i++)
+        {
+            if(!empty(strpos($status_data[$i]['designer_description_status'], 'assigned')))
+            {
+
+            }
+            else
+            {
+                array_push($comleted_status,$status_data[$i]);
+            }
+        }
+        return json_encode($comleted_status);
+    }
+    public function read_work_order_by_machine_operator()
+    {
+        $sql_read_work_orders = "SELECT 
+        work_order.id,
+                    work_order.work_order,
+                    work_order.purchase_order,
+                    work_order.designer_head,
+                    work_order.designer_head_file,
+                    work_order.designer_head_description_status,
+                    work_order.designer,
+                    work_order.designer_file,
+                    work_order.designer_description_status,
+                    work_order.programmer,
+                    work_order.programmer_description_status,
+                    work_order.programmer_file,
+                    work_order.machine_operator,
+                    work_order.machine_operator_description_status,
+                    work_order.machine_operator_parameter,
+                    work_order.machine_operator_file,
+                    work_order.transporter,
+                    work_order.transporter_description_status,
+                    work_order.transporter_file,
+        employee.name as machine_operator_name
+        FROM work_order
+        LEFT JOIN employee ON employee.id=work_order.machine_operator
+        WHERE work_order.machine_operator=$this->machine_operator";;
+        $read_result = $this->db->query($sql_read_work_orders);
+        $status_data=[];
+        while($row=$read_result->fetch_assoc())
+        {
+            array_push($status_data,$row);
+        }
+        $comleted_status=  array();
+        for($i=0;$i<count($status_data);$i++)
+        {
+            if(!empty(strpos($status_data[$i]['programmer_description_status'], 'assigned')))
+            {
+
+            }
+            else
+            {
+                array_push($comleted_status,$status_data[$i]);
+            }
+        }
+        return json_encode($comleted_status);
+    }
+    public function read_work_order_by_transporter()
+    {
+        $sql_read_work_orders = "SELECT 
+        work_order.id,
+                    work_order.work_order,
+                    work_order.purchase_order,
+                    work_order.designer_head,
+                    work_order.designer_head_file,
+                    work_order.designer_head_description_status,
+                    work_order.designer,
+                    work_order.designer_file,
+                    work_order.designer_description_status,
+                    work_order.programmer,
+                    work_order.programmer_description_status,
+                    work_order.programmer_file,
+                    work_order.machine_operator,
+                    work_order.machine_operator_description_status,
+                    work_order.machine_operator_parameter,
+                    work_order.machine_operator_file,
+                    work_order.transporter,
+                    work_order.transporter_description_status,
+                    work_order.transporter_file,
+        employee.name as transporter_name
+        FROM work_order
+        LEFT JOIN employee ON employee.id=work_order.transporter
+        WHERE work_order.transporter=$this->transporter";;
+        $read_result = $this->db->query($sql_read_work_orders);
+        $status_data=[];
+        while($row=$read_result->fetch_assoc())
+        {
+            array_push($status_data,$row);
+        }
+        $comleted_status=  array();
+        for($i=0;$i<count($status_data);$i++)
+        {
+            if(!empty(strpos($status_data[$i]['machine_operator_description_status'], 'assigned')))
+            {
+
+            }
+            else
+            {
+                array_push($comleted_status,$status_data[$i]);
+            }
+        }
+        return json_encode($comleted_status);
+    }
+    public function read_work_order_by_super_admin()
+    {
+        $sql_read = "SELECT 
+                    work_order.id,
+                    work_order.work_order,
+                    work_order.purchase_order,
+                    work_order.designer_head,
+                    work_order.designer_head_file,
+                    work_order.designer_head_description_status,
+                    work_order.designer,
+                    work_order.designer_file,
+                    work_order.designer_description_status,
+                    work_order.programmer,
+                    work_order.programmer_description_status,
+                    work_order.programmer_file,
+                    work_order.machine_operator,
+                    work_order.machine_operator_description_status,
+                    work_order.machine_operator_parameter,
+                    work_order.machine_operator_file,
+                    work_order.transporter,
+                    work_order.transporter_description_status,
+                    work_order.transporter_file,
+                    customer.name as customer_name,
+                    p1.name as designer_head_name,
+                    p2.name as designer_name,
+                    p3.name as programmer_name,
+                    p4.name as machine_operator_name,
+                    p5.name as transporter_name
+                    FROM work_order
+                    LEFT JOIN employee as p1 ON work_order.designer_head=p1.id
+                    LEFT JOIN employee as p2 ON work_order.designer=p2.id
+                    LEFT JOIN employee as p3 ON work_order.programmer=p3.id
+                    LEFT JOIN employee as p4 ON work_order.machine_operator=p4.id
+                    LEFT JOIN employee as p5 ON work_order.transporter=p5.id
+                    LEFT JOIN purchase_order ON work_order.purchase_order=purchase_order.id
+                    LEFT JOIN quotation ON purchase_order.quotation=quotation.id
+                    LEFT JOIN customer_inquiry ON quotation.customer_enquiry=customer_inquiry.id
+                    LEFT JOIN customer ON customer_inquiry.customer=customer.id";
+        //echo $sql_read;die;
+        $this->result = $this->db->query($sql_read);
         return $this->result;
     }
 }

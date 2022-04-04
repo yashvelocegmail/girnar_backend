@@ -12,7 +12,7 @@ class Employee
     public $address;
     public $username;
     public $password;
-    public $user_type;
+    // public $user_type;
     public $users;
     public $adhaar_no;
     public $pan_no;
@@ -65,7 +65,7 @@ class Employee
     }
     public function create_employee_user()
     {
-      $sqlQueryCreateUser = "INSERT INTO users(username,password,user_type) VALUES('$this->username','$this->password','$this->user_type')";
+      $sqlQueryCreateUser = "INSERT INTO users(username,password,user_type) VALUES('$this->username','$this->password','$this->position')";
       //echo $sqlQueryCreateEmployee;die;
       $this->result_create_user = $this->db->query($sqlQueryCreateUser);
       return $this->db->insert_id;
@@ -106,7 +106,7 @@ class Employee
       employee.salary = '$this->salary',
       users.username = '$this->username',
       users.password = '$this->password',
-      users.user_type = '$this->user_type'
+      users.user_type = '$this->position'
       WHERE employee.id=$this->id";
       //echo $sqlQueryUpdateEmployee;die;
       $this->result_update_employee = $this->db->query($sqlQueryUpdateEmployee);
@@ -133,7 +133,7 @@ class Employee
       employee.salary = '$this->salary',
       users.username = '$this->username',
       users.password = '$this->password',
-      users.user_type = '$this->user_type'
+      users.user_type = '$this->position'
       WHERE employee.id=$this->id";
       //echo $sqlQueryUpdateEmployee;die;
       $this->result_update_employee = $this->db->query($sqlQueryUpdateEmployee);
