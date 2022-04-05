@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_POST = json_decode(file_get_contents('php://input'), true);
 
     $items->shift_name = $_POST['shift_name'];
+    $items->shift_from = $_POST['shift_from'];
+    $items->shift_to = $_POST['shift_to'];
     $create_third_party = $items->create_shift();
     $response_arr = array();
     if ($create_third_party) {

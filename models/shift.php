@@ -15,7 +15,7 @@ class Shift
 
     public function create_shift()
     {
-        $sql_create = "INSERT INTO $this->db_table (shift_name) VALUES ('$this->shift_name')";
+        $sql_create = "INSERT INTO $this->db_table (shift_name,shift_from,shift_to) VALUES ('$this->shift_name','$this->shift_from','$this->shift_to')";
         //echo $sql_create;die;
         $this->result = $this->db->query($sql_create);
         return $this->db;
@@ -30,7 +30,9 @@ class Shift
     public function update_shift()
     {
         $sql_update = "UPDATE $this->db_table SET
-        shift_name='$this->shift_name'
+        shift_name='$this->shift_name',
+        shift_from='$this->shift_from',
+        shift_to='$this->shift_to'
         WHERE id=$this->id";
         //echo $sql_update;die;
         $this->result = $this->db->query($sql_update);

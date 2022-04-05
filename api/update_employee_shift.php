@@ -5,17 +5,17 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../config/database.php';
-include_once '../models/shift.php';
+include_once '../models/employee_shift.php';
 
 $database = new Database();
 $db = $database->get_connection();
-$items = new Shift($db);
+$items = new EmployeeShift($db);
 
 $_POST = json_decode(file_get_contents('php://input'), true);
 $items->id = $_POST['id'];
-$items->shift_name = $_POST['shift_name'];
-$items->shift_from = $_POST['shift_from'];
-$items->shift_to = $_POST['shift_to'];
+$items->shift = $_POST['shift'];
+$items->employee = $_POST['employee'];
+$items->position = $_POST['position'];
 $response = $items->update_shift();
 $response_arr=array();
 if($response)

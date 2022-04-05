@@ -24,6 +24,14 @@ class EmployeeAttendance
     public function check_in()
     {
         $sql_validation = "SELECT * FROM $this->db_table WHERE date='$this->date' and employee=$this->employee";
+        $sql_check_shift = "SELECT shift.shift_from from 
+        employee_shift LEFT JOIN shift ON employee_shift.shift=shift.id WHERE employee=$this->employee";
+        $check_shift = $this->db->query($sql_check_shift);
+       
+        while($row=$check_shift->fetch_assoc())
+        {
+            $shift_from=$row['shift_from'];
+        }
         $this->validation_check=$this->db->query($sql_validation);
         //print_r($this->db->affected_rows);die;
         if($this->db->affected_rows>0 && $this->db->affected_rows!=0)
@@ -33,7 +41,7 @@ class EmployeeAttendance
         else
         {
             $time3 = strtotime(date("H:i:s"));
-            $time4 = strtotime("09:00:00");
+            $time4 = strtotime($shift_from);
             $difference2 = round(abs($time3 - $time4) / 3600);
             $sql_check_in = "INSERT INTO $this->db_table (date,check_in,employee,late_hrs) VALUES ('$this->date','$this->check_in','$this->employee','$difference2')";
             //echo $sql_check_in;die;
