@@ -13,26 +13,37 @@ class WorkOrder
     public $designer_head_approval_by_crm_operator;
     public $designer_head_approval_by_super_admin;
     public $designer_head_file;
+    public $designer_head_comment;
     public $designer;
     public $designer_description_status;
     public $designer_approval_by_designer_head;
     public $designer_file;
+    public $designer_comment;
     public $programmer_description_status;
     public $programmer_approval_by_designer;
     public $programmer_approval_by_designer_head;
     public $programmer_file;
+    public $programmer_comment;
     public $machine_operator_description_status;
     public $machine_operator_approval_by_designer;
     public $machine_operator_file;
     public $machine_operator_parameter;
+    public $machine_operator_comment;
     public $transporter_description_status;
     public $transporter_approval_by_crm_operator;
     public $transporter_file;
+    public $transporter_comment;
 
     public $result;
     public function __construct($db)
     {
         $this->db = $db;
+    }
+    public function check_order_completion()
+    {
+        $sql_check_order_completion="SELECT * FROM work_order WHERE id=$this->id";
+        $this->result = $this->db->query($sql_check_order_completion);
+        return $this->result;
     }
     public function create_work_order_with_files()
     {
@@ -158,7 +169,9 @@ class WorkOrder
                     LEFT JOIN employee as p2 ON work_order.designer=p2.id
                     LEFT JOIN employee as p3 ON work_order.programmer=p3.id
                     LEFT JOIN employee as p4 ON work_order.machine_operator=p4.id
-                    LEFT JOIN employee as p5 ON work_order.transporter=p5.id";
+                    LEFT JOIN employee as p5 ON work_order.transporter=p5.id
+                    
+                    ORDER BY work_order.id desc";
         //echo $sql_read;die;
         $this->result = $this->db->query($sql_read);
         return $this->result;
@@ -169,15 +182,20 @@ class WorkOrder
         purchase_order=$this->purchase_order,
         designer_head='$this->designer_head',
         designer_head_description_status='$this->designer_head_description_status',
+        designer_head_comment='$this->designer_head_comment',
         designer=$this->designer,
         designer_description_status='$this->designer_description_status',
+        designer_comment='$this->designer_comment',
         programmer=$this->programmer,
         programmer_description_status='$this->programmer_description_status',
+        programmer_comment='$this->programmer_comment',
         machine_operator=$this->machine_operator,
         machine_operator_description_status='$this->machine_operator_description_status',
         machine_operator_parameter='$this->machine_operator_parameter',
+        machine_operator_comment='$this->machine_operator_comment',
         transporter=$this->transporter,
-        transporter_description_status='$this->transporter_description_status'
+        transporter_description_status='$this->transporter_description_status',
+        transporter_comment='$this->transporter_comment'
         WHERE id=$this->id";
         //echo $sql_update;die;
         $this->result = $this->db->query($sql_update);
@@ -195,20 +213,20 @@ class WorkOrder
         purchase_order=$this->purchase_order,
         designer_head='$this->designer_head',
         designer_head_description_status='$this->designer_head_description_status',
-        designer_head_file = '$this->designer_head_file',
+        designer_head_comment='$this->designer_head_comment',
         designer=$this->designer,
         designer_description_status='$this->designer_description_status',
-        designer_file='$this->designer_file',
+        designer_comment='$this->designer_comment',
         programmer=$this->programmer,
         programmer_description_status='$this->programmer_description_status',
-        programmer_file='$this->programmer_file',
+        programmer_comment='$this->programmer_comment',
         machine_operator=$this->machine_operator,
         machine_operator_description_status='$this->machine_operator_description_status',
         machine_operator_parameter='$this->machine_operator_parameter',
-        machine_operator='$this->machine_operator_file',
+        machine_operator_comment='$this->machine_operator_comment',
         transporter=$this->transporter,
         transporter_description_status='$this->transporter_description_status',
-        transporter_file='$this->transporter_file'
+        transporter_comment='$this->transporter_comment'
         WHERE id=$this->id";
         //echo $sql_update;die;
         $this->result = $this->db->query($sql_update);
@@ -223,23 +241,28 @@ class WorkOrder
                     work_order.designer_head,
                     work_order.designer_head_file,
                     work_order.designer_head_description_status,
+                    work_order.designer_head_comment,
                     work_order.designer,
                     work_order.designer_file,
                     work_order.designer_description_status,
+                    work_order.designer_comment,
                     work_order.programmer,
                     work_order.programmer_description_status,
                     work_order.programmer_file,
+                    work_order.programmer_comment,
                     work_order.machine_operator,
                     work_order.machine_operator_description_status,
                     work_order.machine_operator_parameter,
                     work_order.machine_operator_file,
+                    work_order.machine_operator_comment,
                     work_order.transporter,
                     work_order.transporter_description_status,
                     work_order.transporter_file,
+                    work_order.transporter_comment,
         employee.name as designer_name
         FROM work_order
         LEFT JOIN employee ON employee.id=work_order.designer
-        WHERE work_order.designer=$this->designer";;
+        WHERE work_order.designer=$this->designer";
         $read_result = $this->db->query($sql_read_work_orders);
         $status_data=[];
         while($row=$read_result->fetch_assoc())
@@ -269,23 +292,28 @@ class WorkOrder
                     work_order.designer_head,
                     work_order.designer_head_file,
                     work_order.designer_head_description_status,
+                    work_order.designer_head_comment,
                     work_order.designer,
                     work_order.designer_file,
                     work_order.designer_description_status,
+                    work_order.designer_comment,
                     work_order.programmer,
                     work_order.programmer_description_status,
                     work_order.programmer_file,
+                    work_order.programmer_comment,
                     work_order.machine_operator,
                     work_order.machine_operator_description_status,
                     work_order.machine_operator_parameter,
                     work_order.machine_operator_file,
+                    work_order.machine_operator_comment,
                     work_order.transporter,
                     work_order.transporter_description_status,
                     work_order.transporter_file,
+                    work_order.transporter_comment,
         employee.name as programmer_name
         FROM work_order
         LEFT JOIN employee ON employee.id=work_order.programmer
-        WHERE work_order.programmer=$this->programmer";;
+        WHERE work_order.programmer=$this->programmer";
         $read_result = $this->db->query($sql_read_work_orders);
         $status_data=[];
         while($row=$read_result->fetch_assoc())
@@ -314,24 +342,29 @@ class WorkOrder
                     work_order.purchase_order,
                     work_order.designer_head,
                     work_order.designer_head_file,
+                    work_order.designer_head_comment,
                     work_order.designer_head_description_status,
                     work_order.designer,
                     work_order.designer_file,
                     work_order.designer_description_status,
+                    work_order.designer_comment,
                     work_order.programmer,
                     work_order.programmer_description_status,
                     work_order.programmer_file,
+                    work_order.programmer_comment,
                     work_order.machine_operator,
                     work_order.machine_operator_description_status,
                     work_order.machine_operator_parameter,
                     work_order.machine_operator_file,
+                    work_order.machine_operator_comment,
                     work_order.transporter,
                     work_order.transporter_description_status,
                     work_order.transporter_file,
+                    work_order.transporter_comment,
         employee.name as machine_operator_name
         FROM work_order
         LEFT JOIN employee ON employee.id=work_order.machine_operator
-        WHERE work_order.machine_operator=$this->machine_operator";;
+        WHERE work_order.machine_operator=$this->machine_operator";
         $read_result = $this->db->query($sql_read_work_orders);
         $status_data=[];
         while($row=$read_result->fetch_assoc())
@@ -361,23 +394,28 @@ class WorkOrder
                     work_order.designer_head,
                     work_order.designer_head_file,
                     work_order.designer_head_description_status,
+                    work_order.designer_head_comment,
                     work_order.designer,
                     work_order.designer_file,
                     work_order.designer_description_status,
+                    work_order.designer_comment,
                     work_order.programmer,
                     work_order.programmer_description_status,
                     work_order.programmer_file,
+                    work_order.programmer_comment,
                     work_order.machine_operator,
                     work_order.machine_operator_description_status,
                     work_order.machine_operator_parameter,
                     work_order.machine_operator_file,
+                    work_order.machine_operator_comment,
                     work_order.transporter,
                     work_order.transporter_description_status,
                     work_order.transporter_file,
+                    work_order.transporter_comment,
         employee.name as transporter_name
         FROM work_order
         LEFT JOIN employee ON employee.id=work_order.transporter
-        WHERE work_order.transporter=$this->transporter";;
+        WHERE work_order.transporter=$this->transporter";
         $read_result = $this->db->query($sql_read_work_orders);
         $status_data=[];
         while($row=$read_result->fetch_assoc())
@@ -436,6 +474,45 @@ class WorkOrder
                     LEFT JOIN quotation ON purchase_order.quotation=quotation.id
                     LEFT JOIN customer_inquiry ON quotation.customer_enquiry=customer_inquiry.id
                     LEFT JOIN customer ON customer_inquiry.customer=customer.id";
+        //echo $sql_read;die;
+        $this->result = $this->db->query($sql_read);
+        return $this->result;
+    }
+    public function read_work_order_by_id()
+    {
+        $sql_read = "SELECT 
+                    work_order.id,
+                    work_order.work_order,
+                    work_order.purchase_order,
+                    work_order.designer_head,
+                    work_order.designer_head_file,
+                    work_order.designer_head_description_status,
+                    work_order.designer,
+                    work_order.designer_file,
+                    work_order.designer_description_status,
+                    work_order.programmer,
+                    work_order.programmer_description_status,
+                    work_order.programmer_file,
+                    work_order.machine_operator,
+                    work_order.machine_operator_description_status,
+                    work_order.machine_operator_parameter,
+                    work_order.machine_operator_file,
+                    work_order.transporter,
+                    work_order.transporter_description_status,
+                    work_order.transporter_file,
+                    p1.name as designer_head_name,
+                    p2.name as designer_name,
+                    p3.name as programmer_name,
+                    p4.name as machine_operator_name,
+                    p5.name as transporter_name
+                    FROM work_order
+                    LEFT JOIN employee as p1 ON work_order.designer_head=p1.id
+                    LEFT JOIN employee as p2 ON work_order.designer=p2.id
+                    LEFT JOIN employee as p3 ON work_order.programmer=p3.id
+                    LEFT JOIN employee as p4 ON work_order.machine_operator=p4.id
+                    LEFT JOIN employee as p5 ON work_order.transporter=p5.id
+                    WHERE work_order.status!='completed' and work_order.id=$this->id
+                    ORDER BY work_order.id desc";
         //echo $sql_read;die;
         $this->result = $this->db->query($sql_read);
         return $this->result;

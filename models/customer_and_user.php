@@ -150,4 +150,27 @@ class Customer
         $read_all_customer = $this->db->query($sqlReadAllCustomers);
         return $read_all_customer;
     }
+    // public function get_customer_inquiry()
+    // {
+    //     $sql_get="SELECT customer.id,customer.name as customer_name,customer_inquiry.id from 
+    //     customer_inquiry
+    //     LEFT JOIN customer ON customer.id=customer_inquiry.customer
+    //      WHERE customer=$this->customer";
+    //     $this->result = $this->db->query($sql_get);
+    //     return $this->result;
+    // }
+    public function read_customer_timeline()
+    {
+        $sql_read_customer_timeline = "SELECT 
+        customer.name as customer_name,customer_inquiry.inquiry as inquiry,quotation.id as quotation,purchase_order.id as purchase_order,work_order.id as work_order FROM customer
+        LEFT JOIN customer_inquiry ON customer.id=customer_inquiry.customer
+        LEFT JOIN quotation ON customer_inquiry.id=quotation.customer_enquiry
+        LEFT JOIN purchase_order ON quotation.id=purchase_order.quotation
+        LEFT JOIN work_order ON purchase_order.id=work_order.purchase_order
+        WHERE customer.id=$this->customer
+        ORDER BY customer_inquiry.id desc";
+        
+        $this->result = $this->db->query($sql_read_customer_timeline);
+        return $this->result;
+    }
 }

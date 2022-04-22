@@ -75,6 +75,7 @@ class CustomerInquiry
         //$sql_create = "SELECT * FROM ".$this->db_table."";
         $sql_create = "SELECT
                         customer_inquiry.id,
+                        customer_inquiry.inquiry,
                         customer_inquiry.customer,
                         customer_inquiry.material_type,
                         customer_inquiry.material_thickness,

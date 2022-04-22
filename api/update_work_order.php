@@ -25,25 +25,29 @@ if (empty($_FILES)) {
     // $items->designer_head_file = $_POST['designer_head_file'];
     $items->designer = $_POST['designer'];
     $items->designer_description_status = json_encode($_POST['designer_description_status']);
+    $items->designer_comment = $_POST['designer_comment'];
     // $items->designer_approval_by_designer_head = $_POST['designer_approval_by_designer_head'];
     // $items->designer_file = $_POST['designer_file'];
     $items->programmer = $_POST['programmer'];
     $items->programmer_description_status = json_encode($_POST['programmer_description_status']);
+    $items->programmer_comment = $_POST['programmer_comment'];
     // $items->programmer_approval_by_designer = $_POST['programmer_approval_by_designer'];
     // $items->programmer_approval_by_designer_head = $_POST['programmer_approval_by_designer_head'];
     // $items->programmer_file = $_POST['programmer_file'];
     $items->machine_operator = $_POST['machine_operator'];
     $items->machine_operator_description_status = json_encode($_POST['machine_operator_description_status']);
+    $items->machine_operator_comment = $_POST['machine_operator_comment'];
     // $items->machine_operator_approval_by_designer = $_POST['machine_operator_approval_by_designer'];
     // $items->machine_operator_file = $_POST['machine_operator_file'];
     $items->machine_operator_parameter = json_encode($_POST['machine_operator_parameter']);
     $items->transporter = $_POST['transporter'];
     $items->transporter_description_status = json_encode($_POST['transporter_description_status']);
+    $items->transporter_comment = $_POST['transporter_comment'];
     // $items->transporter_approval_by_crm_operator = $_POST['transporter_approval_by_crm_operator'];
     // $items->transporter_file = $_POST['transporter_file'];
-    $create_third_party = $items->update_work_order();
+    $update_work_order = $items->update_work_order();
     $response_arr = array();
-    if ($create_third_party) {
+    if ($update_work_order) {
         http_response_code(200);
         $response_arr["status"] = 200;
         $response_arr["messsage"] = "Work Order updated successfully";
@@ -125,6 +129,7 @@ else
     $items->designer_head_file = $fileName1;
     $items->designer = $_POST['designer'];
     $items->designer_description_status = json_encode($_POST['designer_description_status']);
+    $items->designer_comment = $_POST['designer_comment'];
     // $items->designer_approval_by_designer_head = $_POST['designer_approval_by_designer_head'];
     $items->designer_file = $fileName2;
     $items->programmer = $_POST['programmer'];
@@ -137,6 +142,7 @@ else
     // $items->machine_operator_approval_by_designer = $_POST['machine_operator_approval_by_designer'];
     $items->machine_operator_file = $fileName4;
     $items->machine_operator_parameter = json_encode($_POST['machine_operator_parameter']);
+    $items->machine_operator_comment = $_POST['machine_operator_comment'];
     $items->transporter = $_POST['transporter'];
     $items->transporter_description_status = json_encode($_POST['transporter_description_status']);
     // $items->transporter_approval_by_crm_operator = $_POST['transporter_approval_by_crm_operator'];

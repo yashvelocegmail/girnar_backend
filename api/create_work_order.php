@@ -15,8 +15,8 @@ $uniqueid = uniqid();
 
 if(empty($_FILES))
 {
-    $_POST = json_decode(file_get_contents('php://input'),true);
-    //print_r($_POST['designer_head']);die;
+    //$_POST = json_decode(file_get_contents('php://input'),true);
+    //print_r($_POST);die;
     $items->purchase_order = $_POST['purchase_order'];
     
     
@@ -32,26 +32,28 @@ if(empty($_FILES))
     
     $items->designer_head = $_POST['designer_head'];
     $items->designer_head_description_status = json_encode($_POST['designer_head_description_status']);
-    $items->designer_head_approval_by_crm_operator = $_POST['designer_head_approval_by_crm_operator'];
-    $items->designer_head_approval_by_super_admin = $_POST['designer_head_approval_by_super_admin'];
-    $items->designer_head_file = $_POST['designer_head_file'];
+    //$items->designer_head_approval_by_crm_operator = $_POST['designer_head_approval_by_crm_operator'];
+    //$items->designer_head_approval_by_super_admin = $_POST['designer_head_approval_by_super_admin'];
+    //$items->designer_head_file = $_POST['designer_head_file'];
     $items->designer = $_POST['designer'];
     $items->designer_description_status = json_encode($_POST['designer_description_status']);
-    $items->designer_approval_by_designer_head = $_POST['designer_approval_by_designer_head'];
-    $items->designer_file = $_POST['designer_file'];
+    
+    //$items->designer_approval_by_designer_head = $_POST['designer_approval_by_designer_head'];
+    //$items->designer_file = $_POST['designer_file'];
+    
     $items->programmer = $_POST['programmer'];
     $items->programmer_description_status = json_encode($_POST['programmer_description_status']);
-    $items->programmer_approval_by_designer = $_POST['programmer_approval_by_designer'];
-    $items->programmer_approval_by_designer_head = $_POST['programmer_approval_by_designer_head'];
-    $items->programmer_file = $_POST['programmer_file'];
+    //$items->programmer_approval_by_designer = $_POST['programmer_approval_by_designer'];
+    //$items->programmer_approval_by_designer_head = $_POST['programmer_approval_by_designer_head'];
+    //$items->programmer_file = $_POST['programmer_file'];
     $items->machine_operator = $_POST['machine_operator'];
     $items->machine_operator_description_status = json_encode($_POST['machine_operator_description_status']);
-    $items->machine_operator_approval_by_designer = $_POST['machine_operator_approval_by_designer'];
-    $items->machine_operator_file = $_POST['machine_operator_file'];
+    //$items->machine_operator_approval_by_designer = $_POST['machine_operator_approval_by_designer'];
+    //$items->machine_operator_file = $_POST['machine_operator_file'];
     $items->machine_operator_parameter = json_encode($_POST['machine_operator_parameter']);
     $items->transporter = $_POST['transporter'];
     $items->transporter_description_status = json_encode($_POST['transporter_description_status']);
-    $items->transporter_approval_by_crm_operator = $_POST['transporter_approval_by_crm_operator'];
+    //$items->transporter_approval_by_crm_operator = $_POST['transporter_approval_by_crm_operator'];
     $items->transporter_file = $_POST['transporter_file'];
     $create_third_party=$items->create_work_order();
     $response_arr = array();
